@@ -221,60 +221,24 @@ impl Default for AdaptiveFilterType {
 }
 
 fn filter_paeth_decode(a: u8, b: u8, c: u8) -> u8 {
-    // Decoding seems to optimize better with this algorithm
-    let pa = (i16::from(b) - i16::from(c)).abs();
-    let pb = (i16::from(a) - i16::from(c)).abs();
-    let pc = ((i16::from(a) - i16::from(c)) + (i16::from(b) - i16::from(c))).abs();
-
-    let mut out = a;
-    let mut min = pa;
-
-    if pb < min {
-        min = pb;
-        out = b;
+    let p = b - a;
+    let q = a + 2*b - 3*c;
+    if p * q <= 0 {
+        a
+    } else if p * (p - q) <= 0 {
+        b
+    } else {
+        c
     }
-    if pc < min {
-        out = c;
-    }
-
-    out
 }
 
 fn filter_paeth(a: u8, b: u8, c: u8) -> u8 {
-    // This is an optimized version of the paeth filter from the PNG specification, proposed by
-    // Luca Versari for [FPNGE](https://www.lucaversari.it/FJXL_and_FPNGE.pdf). It operates
-    // entirely on unsigned 8-bit quantities, making it more conducive to vectorization.
-    //
-    //     p = a + b - c
-    //     pa = |p - a| = |a + b - c - a| = |b - c| = max(b, c) - min(b, c)
-    //     pb = |p - b| = |a + b - c - b| = |a - c| = max(a, c) - min(a, c)
-    //     pc = |p - c| = |a + b - c - c| = |(b - c) + (a - c)| = ...
-    //
-    // Further optimizing the calculation of `pc` a bit tricker. However, notice that:
-    //
-    //        a > c && b > c
-    //    ==> (a - c) > 0 && (b - c) > 0
-    //    ==> pc > (a - c) && pc > (b - c)
-    //    ==> pc > |a - c| && pc > |b - c|
-    //    ==> pc > pb && pc > pa
-    //
-    // Meaning that if `c` is smaller than `a` and `b`, the value of `pc` is irrelevant. Similar
-    // reasoning applies if `c` is larger than the other two inputs. Assuming that `c >= b` and
-    // `c <= b` or vice versa:
-    //
-    //     pc = ||b - c| - |a - c|| =  |pa - pb| = max(pa, pb) - min(pa, pb)
-    //
-    let pa = b.max(c) - c.min(b);
-    let pb = a.max(c) - c.min(a);
-    let pc = if (a < c) == (c < b) {
-        pa.max(pb) - pa.min(pb)
-    } else {
-        255
-    };
-
-    if pa <= pb && pa <= pc {
+    let p = i16::from(b) - i16::from(a);
+    let q = i16::from(a) + 2*i16::from(b) - 3*i16::from(c);
+    let r = p - q;
+    if p * q <= 0 {
         a
-    } else if pb <= pc {
+    } else if p * r <= 0 {
         b
     } else {
         c

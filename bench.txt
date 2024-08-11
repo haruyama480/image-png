@@ -1,0 +1,67 @@
+unfilter/filter=Paeth/bpp=1
+                        time:   [14.495 µs 14.515 µs 14.537 µs]
+                        thrpt:  [268.72 MiB/s 269.13 MiB/s 269.49 MiB/s]
+                 change:
+                        time:   [+35.164% +35.745% +36.236%] (p = 0.00 < 0.05)
+                        thrpt:  [-26.598% -26.333% -26.016%]
+                        Performance has regressed.
+Found 6 outliers among 100 measurements (6.00%)
+  1 (1.00%) high mild
+  5 (5.00%) high severe
+
+unfilter/filter=Paeth/bpp=2
+                        time:   [16.126 µs 16.161 µs 16.203 µs]
+                        thrpt:  [482.17 MiB/s 483.42 MiB/s 484.46 MiB/s]
+                 change:
+                        time:   [+39.426% +39.836% +40.326%] (p = 0.00 < 0.05)
+                        thrpt:  [-28.737% -28.488% -28.278%]
+                        Performance has regressed.
+Found 12 outliers among 100 measurements (12.00%)
+  6 (6.00%) high mild
+  6 (6.00%) high severe
+
+unfilter/filter=Paeth/bpp=3
+                        time:   [25.056 µs 25.090 µs 25.128 µs]
+                        thrpt:  [466.36 MiB/s 467.06 MiB/s 467.70 MiB/s]
+                 change:
+                        time:   [-0.7824% -0.4077% -0.0724%] (p = 0.02 < 0.05)
+                        thrpt:  [+0.0724% +0.4094% +0.7885%]
+                        Change within noise threshold.
+Found 11 outliers among 100 measurements (11.00%)
+  7 (7.00%) high mild
+  4 (4.00%) high severe
+
+unfilter/filter=Paeth/bpp=4
+                        time:   [29.184 µs 29.220 µs 29.263 µs]
+                        thrpt:  [533.95 MiB/s 534.73 MiB/s 535.39 MiB/s]
+                 change:
+                        time:   [+30.354% +31.288% +31.943%] (p = 0.00 < 0.05)
+                        thrpt:  [-24.210% -23.831% -23.286%]
+                        Performance has regressed.
+Found 11 outliers among 100 measurements (11.00%)
+  2 (2.00%) low mild
+  3 (3.00%) high mild
+  6 (6.00%) high severe
+
+unfilter/filter=Paeth/bpp=6
+                        time:   [27.306 µs 27.369 µs 27.442 µs]
+                        thrpt:  [854.07 MiB/s 856.35 MiB/s 858.32 MiB/s]
+                 change:
+                        time:   [+0.0148% +0.2927% +0.5480%] (p = 0.03 < 0.05)
+                        thrpt:  [-0.5450% -0.2919% -0.0148%]
+                        Change within noise threshold.
+Found 13 outliers among 100 measurements (13.00%)
+  8 (8.00%) high mild
+  5 (5.00%) high severe
+
+unfilter/filter=Paeth/bpp=8
+                        time:   [26.143 µs 26.182 µs 26.231 µs]
+                        thrpt:  [1.1634 GiB/s 1.1656 GiB/s 1.1673 GiB/s]
+                 change:
+                        time:   [+33.869% +34.668% +35.280%] (p = 0.00 < 0.05)
+                        thrpt:  [-26.079% -25.743% -25.300%]
+                        Performance has regressed.
+Found 9 outliers among 100 measurements (9.00%)
+  3 (3.00%) high mild
+  6 (6.00%) high severe
+
